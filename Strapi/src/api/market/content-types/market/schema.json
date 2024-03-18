@@ -15,7 +15,7 @@
     "ticker": {
       "type": "string",
       "required": true,
-      "unique": true
+      "unique": false
     },
     "price": {
       "type": "float"
@@ -44,6 +44,14 @@
       "relation": "manyToMany",
       "target": "plugin::users-permissions.user",
       "mappedBy": "markets_favorites"
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "ticker",
+      "required": true
+    },
+    "volume": {
+      "type": "biginteger"
     }
   }
 }

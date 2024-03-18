@@ -374,7 +374,7 @@ export interface ApiMarketMarket extends Schema.CollectionType {
     draftAndPublish: true;
   };
   attributes: {
-    ticker: Attribute.String & Attribute.Required & Attribute.Unique;
+    ticker: Attribute.String & Attribute.Required;
     price: Attribute.Float;
     marcketcap: Attribute.BigInteger;
     shares: Attribute.Float;
@@ -385,6 +385,8 @@ export interface ApiMarketMarket extends Schema.CollectionType {
       'manyToMany',
       'plugin::users-permissions.user'
     >;
+    slug: Attribute.UID<'api::market.market', 'ticker'> & Attribute.Required;
+    volume: Attribute.BigInteger;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
