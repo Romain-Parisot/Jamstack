@@ -1,42 +1,105 @@
 <script setup lang="ts">
-const { create } = useStrapi4();
+import { ref } from "vue";
+const { create } = useStrapi();
 
-const MarketFixtures = async () => {
-  try {
-    const POLYGON_API_KEY = "B8mglg0lAk13qw7i9gu6n8BEnpb1PHw1";
-    const response = await fetch(
-      `https://api.polygon.io/v2/aggs/grouped/locale/us/market/stocks/2024-03-15?adjusted=true&apiKey=${POLYGON_API_KEY}`
-    );
+const stock = ref({
+  ticker: "",
+  price: 0,
+  volume: 0,
+});
 
-    const responseJson = await response.json();
-
-    const stockList = responseJson.results.map((stock: any) => ({
-      name: stock.T.toUpperCase().stringify(),
-      price: stock.c,
-      volume: stock.v,
-      slug: stock.T.toUpperCase().stringify(),
-    }));
-
-    console.log(stockList);
-
-    for (const stock of stockList) {
-      console.log(stock);
-
-      await create("markets", stock);
-    }
-  } catch (error) {
-    console.error(
-      `Error in MarketFixtures function: ${(error as Error).message}`
-    );
-  }
+const MarketAddStock = async () => {
+  const data = {
+    ...stock.value,
+    slug: stock.value.ticker.toLowerCase(),
+  };
+  await create("markets", data);
+  stock.value = {
+    ticker: "",
+    price: 0,
+    volume: 0,
+  };
 };
 </script>
 
 <template>
-  <div>
+  <main role="main" class="main">
     <h1>Create a new stock into strapi</h1>
-    <button @click="MarketFixtures">Populate Data</button>
-  </div>
+    <div class="formcontainer">
+      <form @submit.prevent="MarketAddStock">
+        <div class="formTop">
+          <label>
+            Ticker:
+            <input type="text" v-model="stock.ticker" required />
+          </label>
+          <label>
+            Price:
+            <input type="number" v-model="stock.price" required />
+          </label>
+          <label>
+            Volume:
+            <input type="number" v-model="stock.volume" required />
+          </label>
+        </div>
+        <div class="formBot">
+          <button type="submit">Add Stock</button>
+        </div>
+      </form>
+    </div>
+  </main>
 </template>
 
-<style></style>
+<style>
+h1 {
+  text-align: center;
+  padding: 20px;
+  font-size: 2rem;
+  margin-bottom: 50px;
+}
+.formcontainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+}
+.formTop {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.formBot {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+button {
+  padding: 10px 20px;
+  background-color: #ff0000 !important;
+  color: black;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+button:hover {
+  background-color: #ff0000;
+  color: white;
+}
+input {
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: 1px solid #000000;
+  margin: 10px;
+}
+input:focus {
+  outline: none;
+  border: 1px solid #008407;
+}
+.main {
+  height: 50vh;
+}
+html {
+  overflow-x: hidden;
+}
+</style>

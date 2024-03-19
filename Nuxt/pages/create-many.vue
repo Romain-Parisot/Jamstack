@@ -44,5 +44,44 @@ const MarketFixtures = async () => {
 </script>
 
 <template>
-  <button @click="MarketFixtures">Populate Data</button>
+  <h1>Populate the database 10 000 stock from the polygon Api</h1>
+  <h2>
+    Do it only if you know what you are doing, the database could already have
+    these data, and you would just create copy by doing this
+  </h2>
+  <div class="buttonContainer">
+    <button @click="MarketFixtures">Populate Data</button>
+  </div>
 </template>
+
+<style>
+h1 {
+  text-align: center;
+  padding: 20px;
+  font-size: 2rem;
+  margin-bottom: 50px;
+}
+h2 {
+  text-align: center;
+  padding: 20px;
+  font-size: 1.5rem;
+  margin-bottom: 50px;
+}
+button {
+  padding: 10px 20px;
+  border-radius: 5px;
+  background-color: #f1f1f1;
+  border: none;
+  cursor: pointer;
+}
+button:hover {
+  background-color: #ff0000;
+  color: white;
+}
+.buttonContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 50px;
+}
+</style>
