@@ -19,14 +19,14 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  background-color: aqua;
+  background-color: #4caf50;
   padding: 10px;
 }
 footer {
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  background-color: rgb(34, 255, 126);
+  background-color: #4caf50;
 }
 nav {
   display: flex;
