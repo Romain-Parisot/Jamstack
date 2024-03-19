@@ -371,7 +371,7 @@ export interface ApiMarketMarket extends Schema.CollectionType {
     description: '';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   attributes: {
     ticker: Attribute.String;
@@ -389,7 +389,6 @@ export interface ApiMarketMarket extends Schema.CollectionType {
     volume: Attribute.BigInteger;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
       'api::market.market',
       'oneToOne',

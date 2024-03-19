@@ -4,7 +4,7 @@
   <main role="main">
     <header>
       <nav>
-        <nuxt-link to="/">Home</nuxt-link>
+        <nuxt-link to="/">Market</nuxt-link>
         <nuxt-link to="/createstock">Create Stock</nuxt-link>
         <nuxt-link to="/create-many">Create Many</nuxt-link>
       </nav>

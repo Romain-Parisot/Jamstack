@@ -50,7 +50,9 @@ const MarketFixtures = async () => {
     these data, and you would just create copy by doing this
   </h2>
   <div class="buttonContainer">
-    <button @click="MarketFixtures">Populate Data</button>
+    <button class="createmanyButton" @click="MarketFixtures">
+      Populate Data
+    </button>
   </div>
 </template>
 
@@ -67,15 +69,14 @@ h2 {
   font-size: 1.5rem;
   margin-bottom: 50px;
 }
-button {
+.createmanyButton {
   padding: 10px 20px;
   border-radius: 5px;
-  background-color: #f1f1f1;
+  background-color: #ff0000;
   border: none;
   cursor: pointer;
 }
-button:hover {
-  background-color: #ff0000;
+.createmanyButton:hover {
   color: white;
 }
 .buttonContainer {

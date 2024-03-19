@@ -42,7 +42,7 @@ const MarketAddStock = async () => {
           </label>
         </div>
         <div class="formBot">
-          <button type="submit">Add Stock</button>
+          <button class="addStock" type="submit">Add Stock</button>
         </div>
       </form>
     </div>
@@ -74,7 +74,7 @@ h1 {
   margin-top: 50px;
   margin-bottom: 50px;
 }
-button {
+.addStock {
   padding: 10px 20px;
   background-color: #ff0000 !important;
   color: black;
@@ -83,7 +83,6 @@ button {
   border-radius: 5px;
 }
 button:hover {
-  background-color: #ff0000;
   color: white;
 }
 input {
