@@ -14,7 +14,7 @@
   "attributes": {
     "ticker": {
       "type": "string",
-      "required": true,
+      "required": false,
       "unique": false
     },
     "price": {

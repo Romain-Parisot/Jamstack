@@ -1,4 +1,6 @@
 <script setup lang="ts">
+const { create } = useStrapi4();
+
 const MarketFixtures = async () => {
   try {
     const POLYGON_API_KEY = "B8mglg0lAk13qw7i9gu6n8BEnpb1PHw1";
@@ -9,10 +11,10 @@ const MarketFixtures = async () => {
     const responseJson = await response.json();
 
     const stockList = responseJson.results.map((stock: any) => ({
-      name: stock.T,
+      name: stock.T.toUpperCase().stringify(),
       price: stock.c,
       volume: stock.v,
-      slug: stock.T,
+      slug: stock.T.toUpperCase().stringify(),
     }));
 
     console.log(stockList);
@@ -20,18 +22,7 @@ const MarketFixtures = async () => {
     for (const stock of stockList) {
       console.log(stock);
 
-      const response = await fetch("http://localhost:1337/api/markets", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(stock),
-      });
-      console.log(response);
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
+      await create("markets", stock);
     }
   } catch (error) {
     console.error(

@@ -2,6 +2,6 @@
  * market router
  */
 
-import { factories } from '@strapi/strapi';
+import { factories } from "@strapi/strapi";
 
-export default factories.createCoreRouter('api::market.market');
+export default factories.createCoreRouter("api::market.market");

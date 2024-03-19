@@ -374,7 +374,7 @@ export interface ApiMarketMarket extends Schema.CollectionType {
     draftAndPublish: true;
   };
   attributes: {
-    ticker: Attribute.String & Attribute.Required;
+    ticker: Attribute.String;
     price: Attribute.Float;
     marcketcap: Attribute.BigInteger;
     shares: Attribute.Float;
