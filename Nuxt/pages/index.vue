@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import { useRouter } from "vue-router";
 
 const router = useRouter();
@@ -9,6 +9,7 @@ const selectedFilter = ref(null);
 const equalTo = ref<number>();
 const greaterThan = ref<number>();
 const lessThan = ref<number>();
+const search = ref<string>("");
 
 const { find } = useStrapi();
 const {
@@ -22,15 +23,6 @@ const {
     find("markets", {
       populate: "*",
       pagination: { page: page.value, pageSize: pageSize.value },
-      // filters: {
-      //   ...(selectedFilter.value && {
-      //     [selectedFilter.value]: {
-      //       ...(equalTo.value && { $eq: equalTo.value }),
-      //       ...(greaterThan.value && { $gt: greaterThan.value }),
-      //       ...(lessThan.value && { $lt: lessThan.value }),
-      //     },
-      //   }),
-      // },
       filters: {
         ...(selectedFilter.value === "volume" && {
           $and: [
@@ -46,10 +38,13 @@ const {
             { price: { $lt: lessThan.value } },
           ],
         }),
+        ...(search.value !== "" && {
+          ticker: { $containsi: `%${search.value}%` },
+        }),
       },
     }),
   {
-    watch: [page, pageSize],
+    watch: [page, pageSize, search],
   }
 );
 
@@ -62,12 +57,17 @@ const resetFilters = () => {
   equalTo.value = undefined;
   greaterThan.value = undefined;
   lessThan.value = undefined;
+  search.value = "";
   refresh();
 };
 </script>
 
 <template>
   <h1>Stocks Market</h1>
+  <div class="searchBarContainer">
+    <label for="search">Search Bar:</label>
+    <input v-model="search" type="text" id="search" class="searchBar" />
+  </div>
   <section class="marketDashboard">
     <div class="filtersContainer">
       <h3>Filters</h3>
@@ -200,5 +200,18 @@ td:hover {
   background-color: #ff0000;
   border: none;
   cursor: pointer;
+}
+
+.searchBar {
+  display: flex;
+  flex-grow: 1;
+}
+
+.searchBarContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 40px;
+  gap: 20px;
 }
 </style>
