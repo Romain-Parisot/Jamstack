@@ -1,28 +1,31 @@
 <script setup lang="ts">
+import { ref } from "vue";
 import { useRoute } from "vue-router";
 
 const route = useRoute();
-const slug = route.params.slug;
+const { findOne } = useStrapi();
 
-const { find } = useStrapi();
-const {
-  data: stock,
-  pending,
-  error,
-  refresh,
-} = await useAsyncData("markets", () =>
-  find("markets", { populate: "*", filters: { slug: { $eq: slug } } })
+const { data: stock, pending } = await useAsyncData("market", () =>
+  findOne(`stocks/${route.params.slug}`)
 );
+const log = () => {
+  console.log(stock.value);
+};
 </script>
 
 <template>
   <h1>Stock folder</h1>
-  <section>
-    <div>
-      <h2>Stock</h2>
-      <p>{{ stock.ticker }}</p>
-      <p>{{ stock.price }}</p>
-      <p>{{ stock.volume }}</p>
-    </div>
-  </section>
+
+  <template v-if="pending"> loading... </template>
+  <template v-else>
+    <section>
+      <div>
+        <h2>Stock</h2>
+        <p>{{ data.stock.ticker }}</p>
+        <p>{{ data.stock.price }}</p>
+        <p>{{ data.stock.volume }}</p>
+        <button @click="log()">log</button>
+      </div>
+    </section>
+  </template>
 </template>

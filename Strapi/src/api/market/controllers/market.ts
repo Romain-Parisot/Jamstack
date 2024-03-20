@@ -19,7 +19,6 @@ export default factories.createCoreController(
     },
     async createMany(ctx) {
       const data = ctx.request.body;
-      console.log(data);
 
       const result = await strapi.db
         .query("api::market.market")
