@@ -8,9 +8,6 @@ const { findOne } = useStrapi();
 const { data: stock, pending } = await useAsyncData("market", () =>
   findOne(`stocks/${route.params.slug}`)
 );
-const log = () => {
-  console.log(stock.value);
-};
 </script>
 
 <template>
@@ -24,7 +21,6 @@ const log = () => {
         <p>{{ data.stock.ticker }}</p>
         <p>{{ data.stock.price }}</p>
         <p>{{ data.stock.volume }}</p>
-        <button @click="log()">log</button>
       </div>
     </section>
   </template>
